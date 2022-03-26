@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 @Service
 public class StudentService {
 
@@ -19,8 +18,7 @@ public class StudentService {
     }
 
     public Mono<Student> save(Student student) {
-        System.out.println("StudentRepository:" + studentRepository);
         return studentRepository.save(student)
-                .doOnError(System.out::println);
+                .doOnNext(x -> System.out.println("Save Id:" + x.getId() + ",Name:" + x.getName()));
     }
 }

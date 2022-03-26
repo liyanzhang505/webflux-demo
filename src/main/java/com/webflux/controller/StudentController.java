@@ -23,12 +23,12 @@ public class StudentController {
         return Mono.just("HelloWorld");
     }
 
-    @PostMapping("")
-    public Mono<Student> save(Student student) {
+    @PostMapping("/save")
+    public Mono<Student> save(@RequestBody Student student) {
         return this.studentService.save(student);
     }
 
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @GetMapping(value = "/all")
     public Flux<Student> findAll() {
         return this.studentService.findAll().delayElements(Duration.ofSeconds(1));
     }
