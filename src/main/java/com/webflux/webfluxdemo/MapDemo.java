@@ -1,5 +1,6 @@
 package com.webflux.webfluxdemo;
 
+import com.webflux.model.Student;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,6 +14,7 @@ public class MapDemo {
         t3.subscribe(x -> System.out.println("Test3 get:" + x));
         test4();
 
+        test5();
         System.out.println("Wait for tests to complete");
         Thread.sleep(3000);
     }
@@ -67,7 +69,12 @@ public class MapDemo {
         } catch (Exception e) {
 
         }
-
     }
 
+    public static void test5() {
+        Mono.just("====Test5 Test Map====").subscribe(System.out::println);
+        Flux<Student> a = Flux.just(1, 2, 3)
+                .map(id -> new Student(String.valueOf(id), "str" + id));
+        a.subscribe(System.out::println);
+    }
 }

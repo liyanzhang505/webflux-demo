@@ -10,13 +10,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Document(collection = "student")
 public class Student {
     @Id
     private String id;
     private String name;
+
+    public Student () {}
+
+    public Student(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public void setId(String id) {
         this.id = id;
