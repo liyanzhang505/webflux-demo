@@ -13,11 +13,12 @@ repositories {
 }
 
 dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.22'
 	implementation 'junit:junit:4.12'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
 	implementation 'io.projectreactor:reactor-test:3.4.16'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.6.4'
-	compileOnly 'org.projectlombok:lombok:1.18.22'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive:2.6.4'
 }
 
 tasks.named('test') {
