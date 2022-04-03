@@ -15,8 +15,12 @@ public class MapDemo {
         test4();
 
         test5();
+        Flux<String > t6 = test6();
+        t6.subscribe(x -> System.out.println("Test6 get:" + x));
         System.out.println("Wait for tests to complete");
         Thread.sleep(3000);
+
+
     }
 
     public static void test1() {
@@ -76,5 +80,15 @@ public class MapDemo {
         Flux<Student> a = Flux.just(1, 2, 3)
                 .map(id -> new Student(String.valueOf(id), "str" + id));
         a.subscribe(System.out::println);
+    }
+
+    public static Flux<String> test6() {
+        System.out.println("====Test6 Test map return ====");
+        return Flux.range(1, 5)
+                .log()
+                .map(x -> {
+                    return ("Str" + String.valueOf(x));
+                })
+                .doOnComplete(() -> System.out.println("t6 completed"));
     }
 }
