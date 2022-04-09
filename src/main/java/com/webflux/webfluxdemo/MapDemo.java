@@ -12,7 +12,10 @@ public class MapDemo {
         test2();
         Flux<String > t3 = test3();
         t3.subscribe(x -> System.out.println("Test3 get:" + x));
+
         test4();
+        test4_2();
+        test4_3();
 
         test5();
         Flux<String > t6 = test6();
@@ -63,10 +66,48 @@ public class MapDemo {
         Flux.range(1, 5)
                 .log()
                 .flatMap(x -> {
-                    return Flux.just(x * 2).delayElements(Duration.ofMillis(1000));
+                    return Flux.just(x * x).delayElements(Duration.ofMillis(1000));
                 })
                 .doOnComplete(() -> System.out.println("Test4 completed"))
                 .subscribe(x -> System.out.println("Test4 get:" + x));
+
+        try {
+            Thread.sleep(6000);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void test4_2() {
+        System.out.println("====Test4_2 Test flatMap async====");
+        // The elements in final Flux object returned by flatMap is unordered.
+        Flux.range(1, 5)
+                .log()
+                .map(x -> {
+                    return x * x;
+                })
+                .delayElements(Duration.ofMillis(1000))
+                .doOnComplete(() -> System.out.println("Test4_2 completed"))
+                .subscribe(x -> System.out.println("Test4_2 get:" + x));
+
+        try {
+            Thread.sleep(6000);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void test4_3() {
+        System.out.println("====Test4_3 Test flatMap async====");
+        // The elements in final Flux object returned by flatMap is unordered.
+        Flux.range(1, 5)
+                .log()
+                .flatMap(x -> {
+                    return Flux.just(x * x);
+                })
+                .delayElements(Duration.ofMillis(1000))
+                .doOnComplete(() -> System.out.println("Test4_3 completed"))
+                .subscribe(x -> System.out.println("Test4_3 get:" + x));
 
         try {
             Thread.sleep(6000);
